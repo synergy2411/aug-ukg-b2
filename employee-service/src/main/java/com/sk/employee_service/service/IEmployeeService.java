@@ -6,4 +6,6 @@ public interface IEmployeeService {
     void createEmployee(EmployeeDto employeeDto);
 
     EmployeeDto fetchEmployee(String mobileNumber);
+
+    boolean updateEmployee(EmployeeDto employeeDto);
 }

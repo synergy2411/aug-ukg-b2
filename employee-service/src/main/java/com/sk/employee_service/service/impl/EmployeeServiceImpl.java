@@ -39,4 +39,21 @@ public class EmployeeServiceImpl implements IEmployeeService {
         EmployeeDto employeeDto = EmployeeMapper.mapToEmployeeDto(employee, new EmployeeDto());
         return employeeDto;
     }
+
+    @Override
+    public boolean updateEmployee(EmployeeDto employeeDto) {
+        boolean isUpdated = false;
+        if(employeeDto.getMobileNumber() == null){
+            return isUpdated;
+        }
+        Employee employee = repository.findByMobileNumber(employeeDto.getMobileNumber()).orElseThrow(
+                () -> new EmployeeNotFoundException("Employee does not exists for mobile number - " + employeeDto.getMobileNumber())
+        );
+
+        Employee updatedEmployee = EmployeeMapper.mapToEmployee(employeeDto, employee);
+        repository.save(updatedEmployee);
+        isUpdated = true;
+
+        return isUpdated;
+    }
 }

@@ -29,6 +29,18 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).body(employeeDto);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDto> updateEmployee(@RequestBody EmployeeDto employeeDto){
+        boolean isUpdated =  iEmployeeService.updateEmployee(employeeDto);
+        if(isUpdated){
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseDto("Updated Successfully", "203"));
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new ResponseDto("Not updated", "501"));
+        }
+    }
+
     @GetMapping("/greet")
     public String greet(){
         return "Hello World!";
