@@ -12,6 +12,18 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(EmployeeNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleEmployeeNotFoundException(
+            EmployeeNotFoundException ex, WebRequest webRequest){
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                webRequest.getDescription(false),
+                ex.getMessage(),
+                HttpStatus.NOT_FOUND,
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(EmployeeAlreadyExistsException.class)
     public ResponseEntity<ErrorResponseDto> handleEmployeeAlreadyExistsException(
             EmployeeAlreadyExistsException ex, WebRequest webRequest){

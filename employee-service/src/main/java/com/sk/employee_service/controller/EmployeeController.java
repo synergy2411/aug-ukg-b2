@@ -23,6 +23,12 @@ public class EmployeeController {
         );
     }
 
+    @GetMapping("/fetch")
+    public ResponseEntity<EmployeeDto> fetchEmployee(@RequestParam String mobileNumber){
+        EmployeeDto employeeDto = iEmployeeService.fetchEmployee(mobileNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(employeeDto);
+    }
+
     @GetMapping("/greet")
     public String greet(){
         return "Hello World!";

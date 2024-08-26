@@ -3,6 +3,7 @@ package com.sk.employee_service.service.impl;
 import com.sk.employee_service.dto.EmployeeDto;
 import com.sk.employee_service.entity.Employee;
 import com.sk.employee_service.exceptions.EmployeeAlreadyExistsException;
+import com.sk.employee_service.exceptions.EmployeeNotFoundException;
 import com.sk.employee_service.mapper.EmployeeMapper;
 import com.sk.employee_service.repository.EmployeeRepository;
 import com.sk.employee_service.service.IEmployeeService;
@@ -27,5 +28,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         Employee employee = EmployeeMapper.mapToEmployee(employeeDto, new Employee());
         repository.save(employee);
+    }
+
+    @Override
+    public EmployeeDto fetchEmployee(String mobileNumber) {
+        Employee employee = repository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new EmployeeNotFoundException("Employee does not exists for mobile number - " + mobileNumber)
+        );
+
+        EmployeeDto employeeDto = EmployeeMapper.mapToEmployeeDto(employee, new EmployeeDto());
+        return employeeDto;
     }
 }
