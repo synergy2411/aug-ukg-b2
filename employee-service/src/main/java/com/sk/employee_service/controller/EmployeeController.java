@@ -41,6 +41,18 @@ public class EmployeeController {
         }
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<ResponseDto> deleteEmployee(@RequestParam String mobileNumber){
+        boolean isDeleted =  iEmployeeService.deleteEmployee(mobileNumber);
+        if(isDeleted){
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseDto("Deleted Successfully", "200"));
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new ResponseDto("Not deleted", "501"));
+        }
+    }
+
     @GetMapping("/greet")
     public String greet(){
         return "Hello World!";

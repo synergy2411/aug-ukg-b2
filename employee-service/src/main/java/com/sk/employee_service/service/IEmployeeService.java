@@ -8,4 +8,6 @@ public interface IEmployeeService {
     EmployeeDto fetchEmployee(String mobileNumber);
 
     boolean updateEmployee(EmployeeDto employeeDto);
+
+    boolean deleteEmployee(String mobileNumber);
 }

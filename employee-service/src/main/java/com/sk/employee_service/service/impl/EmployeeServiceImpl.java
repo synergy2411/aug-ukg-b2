@@ -56,4 +56,18 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         return isUpdated;
     }
+
+    @Override
+    public boolean deleteEmployee(String mobileNumber) {
+        boolean isDeleted = false;
+        if(mobileNumber == null){
+            return isDeleted;
+        }
+        repository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new EmployeeNotFoundException("Employee does not exists for mobile number - " + mobileNumber)
+        );
+        repository.deleteByMobileNumber(mobileNumber);
+        isDeleted = true;
+        return isDeleted;
+    }
 }
