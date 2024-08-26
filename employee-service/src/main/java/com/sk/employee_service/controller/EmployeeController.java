@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class EmployeeController {
@@ -27,6 +29,13 @@ public class EmployeeController {
     public ResponseEntity<EmployeeDto> fetchEmployee(@RequestParam String mobileNumber){
         EmployeeDto employeeDto = iEmployeeService.fetchEmployee(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(employeeDto);
+    }
+
+    @GetMapping("/fetch-all")
+    public List<EmployeeDto> fetchAllEmployee(){
+
+        //      Write code to fetch all employee
+        return null;
     }
 
     @PutMapping("/update")
