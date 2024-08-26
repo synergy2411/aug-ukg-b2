@@ -1,8 +1,11 @@
 package com.sk.employee_service.controller;
 
 import com.sk.employee_service.dto.EmployeeDto;
+import com.sk.employee_service.dto.ResponseDto;
 import com.sk.employee_service.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,9 +16,11 @@ public class EmployeeController {
     private IEmployeeService iEmployeeService;
 
     @PostMapping("/create")
-    public String createEmployee(@RequestBody EmployeeDto employeeDto){
+    public ResponseEntity<ResponseDto> createEmployee(@RequestBody EmployeeDto employeeDto){
         iEmployeeService.createEmployee(employeeDto);
-        return "Success";
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                new ResponseDto("Created successfully", "201")
+        );
     }
 
     @GetMapping("/greet")
