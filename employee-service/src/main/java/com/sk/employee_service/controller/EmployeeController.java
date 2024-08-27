@@ -3,6 +3,10 @@ package com.sk.employee_service.controller;
 import com.sk.employee_service.dto.EmployeeDto;
 import com.sk.employee_service.dto.ResponseDto;
 import com.sk.employee_service.service.IEmployeeService;
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(
+        name = "Employee Controller",
+        description = "Employee Controller for CRUD operations for UKG Training",
+        externalDocs = @ExternalDocumentation(
+                url = "http://www.example.com",
+                description = "The external documentation description"
+        )
+)
 @Validated
 @RestController
 @RequestMapping("/api")
@@ -21,6 +33,15 @@ public class EmployeeController {
     @Autowired
     private IEmployeeService iEmployeeService;
 
+    @Operation(
+            description = "Create new Employee operations",
+            summary = "Post API to create new employee in the system"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Success in creating employee"
+
+    )
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createEmployee(@RequestBody @Valid EmployeeDto employeeDto){
         iEmployeeService.createEmployee(employeeDto);
