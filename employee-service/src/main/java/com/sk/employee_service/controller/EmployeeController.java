@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -29,6 +30,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class EmployeeController {
+
+    @Value("${build.version}")
+    private String buildVersion;
 
     @Autowired
     private IEmployeeService iEmployeeService;
@@ -92,6 +96,11 @@ public class EmployeeController {
     @GetMapping("/greet")
     public String greet(){
         return "Hello World!";
+    }
+
+    @GetMapping("/build-info")
+    public String buildInfo(){
+        return buildVersion;
     }
 
 }
