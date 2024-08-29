@@ -56,7 +56,8 @@ public class EmployeeController {
 
     @GetMapping("/fetch")
     public ResponseEntity<EmployeeDto> fetchEmployee(@RequestParam
-                                                         @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number should have 10 digits") String mobileNumber){
+                                                         @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number should have 10 digits")
+                                                         String mobileNumber){
         EmployeeDto employeeDto = iEmployeeService.fetchEmployee(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(employeeDto);
     }
